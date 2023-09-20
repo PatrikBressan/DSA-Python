@@ -14,4 +14,12 @@ for i in lista:
     print(list(result))
 
 
+#Others solutions
+add = lambda x: x+1
+sub = lambda x: x-1
 
+funcs2 = [add,sub]
+
+for i in lista:
+    resultado = map(lambda x: x(i), funcs2)
+    print(list(resultado))
