@@ -33,6 +33,88 @@ def limpa_tela():
    else:
       _ = system('clear')
 
+# Função que desenha a forca na tela
+def display_hangman(chances):
+   # Lista de estágios da forca
+   stages = [
+            # Stage 6 - final
+            '''
+                -------------
+                |           |
+                |           O
+                |          \\|/
+                |           |
+                |          / \\
+                |
+                |
+                -
+            ''',
+            # Stage 5
+            '''
+                -------------
+                |           |
+                |           O
+                |          \\|/
+                |           |
+                |          /
+                |
+                |
+                -
+            ''',
+            # Stage 4
+            '''
+                -------------
+                |           |
+                |           O
+                |          \\|/
+                |           |
+                |
+                |
+                -
+            ''',
+            # Stage 3
+            '''
+                -------------
+                |           |
+                |           O
+                |          \\|
+                |           |
+                |
+                -
+            ''',
+            # Stage 2
+            '''
+                -------------
+                |           |
+                |           O
+                |           |
+                |           |
+                |
+                -
+            ''',
+            # Stage 1
+            '''
+                -------------
+                |           |
+                |           O
+                |
+                |
+                |
+                -
+            ''',
+            # Stage 0
+            '''
+                -------------
+                |           |
+                |
+                |
+                |
+                |
+                -
+            '''
+   ]
+   return stages[chances]
+
 def game():
    limpa_tela()
    print('\nBem-vindo(a) ao Jogo da Forca!')
@@ -48,13 +130,14 @@ def game():
    letras_descobertas = ['_' for letra in palavra]
 
    # Nº de chances
-   chances = 5
+   chances = 6
 
    # Lista para as letras erradas
    letras_erradas = []
 
-   while chances > 0:
+   while chances >= 0:
       # Print
+      print(display_hangman(chances))
       print(" ".join(letras_descobertas))
       print('\nChances restantes: ', chances)
       print('Letras erradas: ', " ".join(letras_erradas))
