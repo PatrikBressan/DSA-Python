@@ -15,3 +15,29 @@ print(type(arr1))
 # Matriz = 2 dimensões
 # Imagem 3D = 3 dimensões
 print(arr1.shape)
+
+
+# Indexação em arrays Numpy
+print(arr1[4])
+print(arr1[1:4])
+print(arr1[1:4+1])
+
+
+# Criando uma lista de índices
+indices = [1, 2, 5, 6]
+print(arr1[indices])
+
+# Cria uma máscara booleana para os elementos pares
+mask = (arr1 % 2 == 0)
+print(f'\nMask: {mask}')
+print(arr1[mask])
+
+# Alterando um elemento do array
+arr1[0] = 100
+print(arr1)
+
+# Não é possível incluir elemento de outro tipo
+try:
+    arr1[0] = 'Novo Elemento'
+except:
+    print('Operação Não Permitida!')
