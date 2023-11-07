@@ -41,3 +41,14 @@ try:
     arr1[0] = 'Novo Elemento'
 except:
     print('Operação Não Permitida!')
+
+arr2 = np.array([1,2,3,4,5])
+print(arr2)
+print(arr2.cumsum())
+print(arr2.cumprod())
+arr3 = np.arange(0,50,5)
+print(arr3)
+print(type(arr3))
+
+print(np.shape(arr3))
+print(arr3.dtype)
