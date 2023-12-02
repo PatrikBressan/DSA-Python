@@ -52,3 +52,15 @@ print(type(arr3))
 
 print(np.shape(arr3))
 print(arr3.dtype)
+
+# Retorna 1 nas posições em diagonal e 0 no restante
+arr5 = np.eye(3)
+print(arr5)
+
+arr6 = np.diag(np.array([1,2,3,4]))
+print(arr6)
+
+print(np.linspace(0,10))
+print(np.linspace(0,10,15))
+
+print(np.logspace(0, 5, 10))
