@@ -45,3 +45,31 @@ print(df2.Valor_Venda.describe())
 print('\nQuery 3 -----------------------')
 df3 = df2.query('Valor_Venda > 766')
 print(df3.head())
+
+# Shape retorna nº de linhas e nº de colunas
+print('\n-----------------------')
+print(if_df.shape)
+
+print(if_df['Quantidade'].isin([5,7,9,11]))
+
+print('\n Shape com Filtro')
+print(if_df[if_df['Quantidade'].isin([5,7,9,11])].shape)
+print(if_df[if_df['Quantidade'].isin([5,7,9,11])][:10])
+
+
+# Operadores lógicos para Manipulação de Dados com Pandas
+print('\n-----------------------')
+# head = cabeça = retorna os primeiros valores
+print(if_df[ (if_df.Segmento == 'Home Office') & (if_df.Regiao == 'South') ].head())
+# tail = cauda = retorna os últimos valores
+print(if_df[ (if_df.Segmento == 'Home Office') | (if_df.Regiao == 'South') ].tail())
+
+print(if_df[ (if_df.Segmento != 'Home Office') & (if_df.Regiao != 'South') ].sample(5))
+
+# Agrupamento de Dados em DataFrames com GroupBy
+print('\n-----------------------')
+print(if_df[['Segmento', 'Regiao', 'Valor_Venda']].groupby(['Segmento', 'Regiao']).mean())
+
+# Agregação Múltipla com GroupBy
+print('\n-----------------------')
+print(if_df[['Segmento', 'Regiao', 'Valor_Venda']].groupby(['Segmento', 'Regiao']).agg(['mean', 'std', 'count']))
