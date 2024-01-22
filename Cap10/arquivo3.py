@@ -73,3 +73,60 @@ print(if_df[['Segmento', 'Regiao', 'Valor_Venda']].groupby(['Segmento', 'Regiao'
 # Agregação Múltipla com GroupBy
 print('\n-----------------------')
 print(if_df[['Segmento', 'Regiao', 'Valor_Venda']].groupby(['Segmento', 'Regiao']).agg(['mean', 'std', 'count']))
+
+### Filtrando DataFrame do Pandas com Base em Strings
+print('\n-----------------------')
+print(if_df.head())
+
+# Filtramos o dataframe pela coluna Segmento com valores que iniciam com as letras 'Con'
+print(if_df[if_df.Segmento.str.startswith('Con')].head())
+
+print(if_df[if_df.Segmento.str.endswith('mer')].head())
+
+
+### Split de Strings em Dataframes do Pandas
+print('\n-----------------------')
+print(if_df['ID_Pedido'].head())
+
+# Temos o país, o ano e o ID do pedido. Vamos dividir essa coluna e extrair o ano para gravar em uma nova coluna
+print(if_df['ID_Pedido'].str.split('-'))
+
+print(if_df['ID_Pedido'].str.split('-').str[1].head())
+
+# Egenharia de Atributos é chamado esse processo que fizemos
+# Fazemos o split da coluna e extraímos o item na posição 2 (índice 1)
+if_df['Ano'] = if_df['ID_Pedido'].str.split('-').str[1]
+print(if_df.head())
+
+
+### Strip de strings em dataframes do Pandas
+# Split divide a string
+# Strip remove caracteres da string
+print('\n-----------------------')
+print(if_df.head(3))
+
+print(if_df['Data_Pedido'].head(3))
+
+# Vamos remover os dígitos 2 (dois) e 0 (zero) à esquerda do valor da variável 'Data_Pedido'.
+print(if_df['Data_Pedido'].str.lstrip('20'))
+
+# Como não colocamos o 'inplace = True' a mudança é somente na memória e não altera o dataframe. Podemos
+# usar ainda as funções rstrip() e strip() com diferentes variações de strip de strings.
+
+
+### Replace de Strings em DataFrames do Pandas
+# Substituímos os caracteres CG por AX na coluna 'ID_Cliente'
+print('\n-----------------------')
+print(if_df.head())
+
+if_df['ID_Cliente'] = if_df['ID_Cliente'].str.replace('CG', 'AX')
+print(if_df.head())
+
+
+### Combinação de strings em DataFrames do Pandas
+print('\n-----------------------')
+print(if_df.head())
+
+# Concatenando strings
+if_df['Pedido_Segmento'] = if_df['ID_Pedido'].str.cat(if_df['Segmento'], sep = '-')
+print(if_df.head())
