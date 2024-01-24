@@ -42,3 +42,4 @@ axes2.set_xlabel('y')
 axes2.set_ylabel('x')
 axes2.set_title('Figura Secundária')
 plt.show()
+
