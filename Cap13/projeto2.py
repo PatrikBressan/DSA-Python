@@ -39,3 +39,22 @@ print(df_dsa.duplicated())
 print(df_dsa.isnull().sum())
 
 print(df_dsa.head())
+
+###################################################################################################
+### Pergunta de Negócio 1:
+### Qual Cidade com Maior Valor de Venda de Produtos da Categoria 'Office Supplies'?
+print('\n------------------------')
+# Filtramos o dataframe com os registros da categoria que desejamos
+df1 = df_dsa[df_dsa['Categoria'] == 'Office Supplies']
+print(df1)
+
+# Agrupamos por cidade e calculamos o total de valor_venda
+df1_total = df1.groupby('Cidade')['Valor_Venda'].sum()
+print(df1_total)
+
+# Encontramos a cidade com maior valor de venda
+cidade_maior_venda = df1_total.idxmax()
+print(f'\nCidade com maior valor de venda para a categoria Office Supplies é: {cidade_maior_venda}')
+
+# Conferindo o resultado
+print(df1_total.sort_values(ascending=False))
