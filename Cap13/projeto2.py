@@ -132,3 +132,58 @@ sea.barplot(data = df4_2,
             x = 'Cidade').set(title='10 Cidades com Maiores Valores de Venda')
 plt.xticks(rotation = 80)
 plt.show()
+
+
+###################################################################################################
+### Pergunta de Negócio 5:
+### Qual Segmento Teve o Maior Total de Vendas?
+### Demonstre o resultado através de um gráfico de pizza.
+
+print('\n\n------------------------')
+print('\nPERGUNTA DE NEGÓCIO 5')
+df5 = df_dsa.groupby('Segmento')['Valor_Venda'].sum().reset_index().sort_values(by='Valor_Venda', ascending=False)
+print(f'\nSegmento com Maior Total de Vendas é: \n{df5}')
+
+# Função para converter os dados em valor absoluto
+def autopct_format(values):
+    def my_format(pct):
+        total = sum(values)
+        val = int(round(pct * total / 100.0))
+        return ' $ {v:d}'.format(v = val)
+    return my_format
+
+# Plot
+plt.figure(figsize=(16,6))
+plt.pie(df5['Valor_Venda'],
+        labels=df5['Segmento'],
+        autopct=autopct_format(df5['Valor_Venda']),
+        startangle=90)
+
+# Limpa o círculo central
+centre_circle = plt.Circle((0,0), 0.82, fc='white')
+fig = plt.gcf()
+fig.gca().add_artist(centre_circle)
+
+# Labels e anotações
+plt.annotate(text='Total de Vendas: ' + '$ ' + str(int(sum(df5['Valor_Venda']))), xy=(-0.25, 0))
+plt.title('Total de Vendas por Segmento')
+plt.show()
+
+#values = df5[[0,1],[1,1],[2,1],[3,1]]
+#labels = df5[[0,0],[1,0],[2,0],[3,0]]
+#print(f'\n Values: {values} - Labels: {labels}')
+
+
+#print('\nShape DF5: ', df5.shape)
+#plt.pie
+
+#df.groupby('species').count().plot.pie(y='sepal length (cm)')
+
+# Gráfico - notação Seaborn
+#sea.set_style('whitegrid')
+#plt.figure(figsize=(16,6))
+#plt.pie(df5[1], labels=df5[0], autopct='%1.2f%%', startangle=90, shadow=True, explode=(0.2,0,0,0))
+#plt.show()
+
+#plt.pie(fatias, labels= atividades, colors=cores,autopct='%1.2f%%', startangle=90, shadow=True, explode=(0,0.2,0,0))
+#df.groupby('species').count().plot.pie(y='sepal length (cm)')
