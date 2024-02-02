@@ -187,3 +187,20 @@ plt.show()
 
 #plt.pie(fatias, labels= atividades, colors=cores,autopct='%1.2f%%', startangle=90, shadow=True, explode=(0,0.2,0,0))
 #df.groupby('species').count().plot.pie(y='sepal length (cm)')
+
+###################################################################################################
+### Pergunta de Negócio 6 (Desafio Nível Baby):
+### Qual o Total de Vendas Por Segmento e Por Ano?
+print('\n\n------------------------')
+print('\nPERGUNTA DE NEGÓCIO 6')
+
+### Split de strings
+df_dsa['Ano'] = df_dsa['Data_Pedido'].str.split('/').str[2]
+print(f'\nDF6: {df_dsa}')
+
+
+df6 = df_dsa.groupby(['Segmento', 'Ano'])['Valor_Venda'].sum()
+print(f'\nDF6: {df6}')
+
+df6_ano_primeiro = df_dsa.groupby(['Ano','Segmento'])['Valor_Venda'].sum()
+print(f'\nDF6: {df6_ano_primeiro}')
