@@ -204,3 +204,27 @@ print(f'\nDF6: {df6}')
 
 df6_ano_primeiro = df_dsa.groupby(['Ano','Segmento'])['Valor_Venda'].sum()
 print(f'\nDF6: {df6_ano_primeiro}')
+
+
+###################################################################################################
+### Pergunta de Negócio 7 (Desafio Nível Júnior):
+'''
+Os gestores da empresa estão considerando conceder diferentes faixas de descontos
+e gostariam de fazer uma simulação com base na regra abaixo:
+- Se o Valor_Venda for maior que 1000 recebe 15% de desconto.
+- Se o Valor_Venda for menor que 1000 recebe 10% de desconto.
+### Quantas Vendas Receberiam 15% de Desconto?
+'''
+print('\n\n------------------------')
+print('\nPERGUNTA DE NEGÓCIO 7')
+# Opção 1
+df7 = df_dsa.query('Valor_Venda > 1000').count()
+print(f'\nA quantidade de vendas que podem receber 15% de desconto é: {df7}.')
+
+# Opção 2 - resposta aprimorada
+# Cria uma nova coluna de acordo com a regra da pergunta de negócio 7
+df_dsa['Desconto'] = np.where(df_dsa['Valor_Venda'] > 1000, 0.15, 0.10)
+print('\n',df_dsa.head())
+
+# Total por cada valor da variável
+print('\n', df_dsa['Desconto'].value_counts())
