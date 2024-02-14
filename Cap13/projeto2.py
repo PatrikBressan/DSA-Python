@@ -228,3 +228,31 @@ print('\n',df_dsa.head())
 
 # Total por cada valor da variável
 print('\n', df_dsa['Desconto'].value_counts())
+
+###################################################################################################
+### Pergunta de Negócio 8 (Desafio Nível Master):
+'''
+Considere Que a Empresa Decida Conceder o Desconto de 15% do Item Anterior.
+Qual Seria a Média do Valor de Venda Antes e Depois do Desconto?
+'''
+print('\n\n------------------------')
+print('\nPERGUNTA DE NEGÓCIO 8')
+
+# Criamos uma coluna calculando o valor de venda menos o desconto
+df_dsa['Valor_Venda_Desconto'] = df_dsa['Valor_Venda'] - (df_dsa['Valor_Venda'] * df_dsa['Desconto'])
+df_dsa.head()
+
+# Filtramos as vendas antes do desconto de 15%
+df8_vendas_antes_desconto = df_dsa.loc[df_dsa['Desconto'] == 0.15, 'Valor_Venda']
+
+# Filtramos as vendas depois do desconto de 15%
+df8_vendas_depois_desconto = df_dsa.loc[df_dsa['Desconto'] == 0.15, 'Valor_Venda_Desconto']
+
+# Calculamos as médias das vendas antes e depois do desconto de 15%
+media_vendas_antes_desconto = df8_vendas_antes_desconto.mean()
+media_vendas_depois_desconto = df8_vendas_depois_desconto.mean()
+
+# Imprimimos
+print(f'\nMédia do valor de venda antes do desconto de 15%: {round(media_vendas_antes_desconto,2)}')
+print(f'\nMédia do valor de venda depois do desconto de 15%: {round(media_vendas_depois_desconto,2)}')
+
