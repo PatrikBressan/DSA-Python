@@ -256,3 +256,27 @@ media_vendas_depois_desconto = df8_vendas_depois_desconto.mean()
 print(f'\nMédia do valor de venda antes do desconto de 15%: {round(media_vendas_antes_desconto,2)}')
 print(f'\nMédia do valor de venda depois do desconto de 15%: {round(media_vendas_depois_desconto,2)}')
 
+
+
+###################################################################################################
+### Pergunta de Negócio 9 (Desafio Nível Master Ninha):
+'''
+Qual o Média de Vendas Por Segmento, Por Ano e Por Mês?
+
+Demonstre o resultado através de gráfico de linha.
+'''
+print('\n\n------------------------')
+print('\nPERGUNTA DE NEGÓCIO 9')
+
+# Calculamos a a média de vendas por segmento
+df9_segmento = df_dsa.groupby('Segmento')['Valor_Venda'].mean()
+
+# Pegamos o ano na pergunta de negócio 5
+# Calculamos a média de vendas por ano
+df9_ano = df_dsa.groupby('Ano')['Valor_Venda'].mean()
+
+# Precisamos criar uma coluna do dataframe com o mês
+df_dsa['Mes'] = df_dsa['Data_Pedido'].str.split('/').str[1]
+print(df_dsa.head)
+
+
