@@ -268,15 +268,29 @@ Demonstre o resultado através de gráfico de linha.
 print('\n\n------------------------')
 print('\nPERGUNTA DE NEGÓCIO 9')
 
-# Calculamos a a média de vendas por segmento
-df9_segmento = df_dsa.groupby('Segmento')['Valor_Venda'].mean()
-
-# Pegamos o ano na pergunta de negócio 5
-# Calculamos a média de vendas por ano
-df9_ano = df_dsa.groupby('Ano')['Valor_Venda'].mean()
-
 # Precisamos criar uma coluna do dataframe com o mês
 df_dsa['Mes'] = df_dsa['Data_Pedido'].str.split('/').str[1]
 print(df_dsa.head)
 
+# Agrupamos por ano, mês e segmento e calculamos estatísticas de agregação
+df9 = df_dsa.groupby(['Segmento', 'Ano', 'Mes'])['Valor_Venda'].agg([np.sum, np.mean, np.median])
+print(df9.head())
 
+# Vamos extrair os níveis
+segmentos = df9.index.get_level_values(0)
+anos = df9.index.get_level_values(1)
+meses = df9.index.get_level_values(2)
+
+# Plot
+# relplot permite o relacionamento/compartilhamento de variáveis em um gráfico.
+plt.figure(figsize=(12,6))
+sea.set()
+fig9 = sea.relplot(kind='line',
+                   data=df9,
+                   y = 'mean',
+                   x = meses,
+                   hue = segmentos,
+                   col = anos,
+                   col_wrap = 4)
+
+plt.show()
