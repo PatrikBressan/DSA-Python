@@ -294,3 +294,81 @@ fig9 = sea.relplot(kind='line',
                    col_wrap = 4)
 
 plt.show()
+
+
+###################################################################################################
+### Pergunta de Negócio 10 (Desafio Nível Master Ninha das Galáxias):
+'''
+Qual o Total de Vendas Por Categoria e SubCategoria, Considerando Somente as Top 12 SubCategorias? 
+
+Demonstre tudo através de um único gráfico.
+'''
+print('\n\n------------------------')
+print('\nPERGUNTA DE NEGÓCIO 10')
+df_dsa.head()
+
+# Agrupamos por categoria e subcategoria e calculamos a soma somente para variáveis numéricas
+df10 = df_dsa.groupby(['Categoria', 'SubCategoria']).sum(numeric_only = True).sort_values('Valor_Venda', ascending = False).head(12)
+
+# Convertemos a coluna Valor_Venda em número inteiro e classificamos por categoria
+# Classificar por categoria é importante para preencher o gráfico com as subcategorias para cada categoria de forma ordenada
+df10 = df10[['Valor_Venda']].astype(int).sort_values(by = 'Categoria').reset_index()
+
+# Dataframe com categorias e subcategorias
+print(df10)
+
+# Criamos outro dataframe somente com os totais por categoria
+df10_cat = df10.groupby('Categoria').sum(numeric_only = True).reset_index()
+
+# Dataframe com categorias
+print(df10_cat)
+
+# Listas de cores para categorias
+cores_categorias = ['#5d00de', '#0ee84f', '#e80e27']
+
+# Listas de cores para subcategorias
+cores_subcategorias = ['#aa8cd4',
+                       '#aa8cd5',
+                       '#aa8cd6',
+                       '#aa8cd7',
+                       '#26c957',
+                       '#26c958',
+                       '#26c959',
+                       '#26c960',
+                       '#e65e65',
+                       '#e65e66',
+                       '#e65e67',
+                       '#e65e68']
+
+
+# Plot
+# Tamanho da figura
+fig, ax = plt.subplots(figsize = (18, 12))
+
+# Gráfico das categorias
+p1 = ax.pie(df10_cat['Valor_Venda'],
+            radius = 1,
+            labels = df10_cat['Categoria'],
+            wedgeprops = dict(edgecolor = 'white'),
+            colors = cores_categorias)
+
+# Gráfico das subcategorias
+p2 = ax.pie(df10['Valor_Venda'],
+            radius = 0.9,
+            labels = df10['SubCategoria'],
+            autopct = autopct_format(df10['Valor_Venda']),
+            colors = cores_subcategorias,
+            labeldistance = 0.7,
+            wedgeprops = dict(edgecolor = 'white'),
+            pctdistance = 0.53,
+            rotatelabels = True)
+
+# Limpa o centro do círculo
+centre_circle = plt.Circle((0,0), 0.6, fc='white')
+
+# Labels e anotações
+fig = plt.gcf()
+fig.gca().add_artist(centre_circle)
+plt.annotate(text = 'Total de Vendas: ' + '$ ' + str(int(sum(df10['Valor_Venda']))), xy = (-0.2, 0))
+plt.title('Total de Vendas Por Categoria e Top 12 SubCategorias')
+plt.show()
